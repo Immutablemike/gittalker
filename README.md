@@ -320,8 +320,8 @@ We'd love your help making GitTalker even better! Here's how to get involved:
 ## 📋 **Roadmap**
 
 ### **🔥 Current Focus**
-- [ ] GitHub Actions automation
 - [ ] Demo GIF and visual assets
+- [ ] Integration documentation improvements
 - [ ] Community engagement features
 
 ### **🚀 Next Phase**
