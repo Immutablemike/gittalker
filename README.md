@@ -4,6 +4,8 @@
 
 **The client communication tool that eliminates daily standups and "what's the status?" interruptions.**
 
+[![CI/CD](https://github.com/USERNAME/gittalker/workflows/🔥%20CI/CD%20Pipeline/badge.svg)](https://github.com/USERNAME/gittalker/actions)
+[![Release](https://img.shields.io/github/v/release/USERNAME/gittalker?style=flat-square)](https://github.com/USERNAME/gittalker/releases)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)
