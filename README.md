@@ -4,21 +4,23 @@
 
 **The client communication tool that eliminates daily standups and "what's the status?" interruptions.**
 
-[![CI/CD](https://github.com/USERNAME/gittalker/workflows/🔥%20CI/CD%20Pipeline/badge.svg)](https://github.com/USERNAME/gittalker/actions)
-[![Release](https://img.shields.io/github/v/release/USERNAME/gittalker?style=flat-square)](https://github.com/USERNAME/gittalker/releases)
+[![CI/CD](https://github.com/Immutablemike/gittalker/workflows/🔥%20CI/CD%20Pipeline/badge.svg)](https://github.com/Immutablemike/gittalker/actions)
+[![Release](https://img.shields.io/github/v/release/Immutablemike/gittalker?style=flat-square)](https://github.com/Immutablemike/gittalker/releases)
 ![Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?logo=slack&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
 
-[Features](#features) • [Quick Start](#quick-start) • [Configuration](#configuration) • [Personalities](#agent-personalities) • [Contributing](#contributing)
+[Features](#features) • [Quick Start](#quick-start) • [Configuration](#configuration) • [Personalities](#agent-personalities) • [Usage Examples](#usage-examples) • [Contributing](#contributing)
 
 </div>
 
 ---
 
 ## 🎯 **Problem → Solution**
+
+GitTalker automatically updates your Slack channels with daily development progress, letting clients stay informed while developers stay focused. Query-friendly updates mean no more endless status meetings!
 
 | **Before GitTalker** | **After GitTalker** |
 |---------------------|-------------------|
@@ -38,6 +40,8 @@ Choose from 5 pre-built personalities or create your own:
 - **🤝 Friendly Guide** - Educational, supportive
 - **⚡ Results-Driven** - Metrics-focused, action-oriented
 
+**Customize everything:** Agent name, team branding, communication style, response patterns, and client interaction tone.
+
 ### 🔧 **Core Capabilities**
 - **Slack Integration** - Real-time communication in your team channels
 - **GitHub Repository Access** - Reads and understands your project documentation
@@ -48,6 +52,10 @@ Choose from 5 pre-built personalities or create your own:
 
 ### 🛡️ **Built for Teams**
 - **Multi-Client Support** - Different personalities for different clients
+- **Brand Customization** - Your agent, your name, your style
+- **Scope Control** - Define exactly what information is shared
+- **Security-First** - Environment variables for all sensitive data
+- **Production Ready** - Built with FastAPI, async/await, and proper error handling
 - **Brand Customization** - Your agent, your name, your style
 - **Scope Control** - Define exactly what information is shared
 - **Security-First** - Environment variables for all sensitive data
@@ -262,6 +270,42 @@ python src/main.py
 
 ## 📚 **Usage Examples**
 
+---
+
+## 📚 **Usage Examples**
+
+### **Repository Structure**
+
+Create a `gittalker/` directory in your repository with documentation you want the bot to access:
+
+```
+your-repo/
+├── gittalker/           # Bot can only read from here
+│   ├── setup.md
+│   ├── api-docs.md
+│   └── troubleshooting.md
+├── src/                 # Bot cannot access
+├── private-configs/     # Bot cannot access
+└── README.md           # Bot cannot access
+```
+
+### **Personality Examples**
+
+**In-Scope Query (Jive Robot):**
+> **User:** "How do I install dependencies?"
+> 
+> **GitTalker:** "Yo, good question! 💯 Based on our setup docs, you just need to run `pip install -r requirements.txt` and you're straight. Need me to break that down more, fam?"
+
+**In-Scope Query (Professional Consultant):**
+> **User:** "How do I install dependencies?"
+> 
+> **GitTalker:** "I'd be happy to help you with the installation process. According to our project documentation, you'll need to run `pip install -r requirements.txt` to install all required dependencies. This will ensure your environment matches our development specifications."
+
+**Out-of-Scope Query:**
+> **User:** "What's the weather?"
+> 
+> **GitTalker:** "Yo! You gotta ask Mike! 💭 I only know what's in our project docs, no cap. That's outside my lane, fam."
+
 ### **Daily Progress Updates**
 GitTalker automatically posts progress updates based on repository activity:
 
@@ -286,6 +330,26 @@ Perfect for developer-focused communication:
 > **Stakeholder**: @GitTalker can you explain the architecture?
 > 
 > **GitTalker (Technical Expert)**: From an implementation perspective, the system uses a microservices architecture with FastAPI for the backend, React for the frontend, and PostgreSQL for data persistence. Here's the technical overview of each component...
+
+---
+
+## 🏗️ **Architecture**
+
+- **FastAPI**: Modern async web framework for high-performance API
+- **OpenAI GPT**: Language model for intelligent, contextual responses
+- **Slack SDK**: Real-time chat integration with Socket Mode
+- **RAG Engine**: Document retrieval and chunking for accurate responses
+- **GitHub API**: Repository content fetching with scope control
+- **Python 3.8+**: Modern Python with async/await support
+
+## 🛡️ **Security Features**
+
+- **Input Validation**: Prevents malicious queries and injection attacks
+- **Scope Enforcement**: Bot only accesses designated directories
+- **No Sensitive Data**: Responses never include credentials or private info
+- **Environment Variables**: All sensitive configuration externalized
+- **Automatic Escalation**: Complex queries escalated to human team members
+- **Rate Limiting**: Built-in protection against API abuse
 
 ---
 
@@ -364,6 +428,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Slack** for the amazing platform and developer tools
 - **GitHub** for hosting our code and community
 - **Contributors** who help make GitTalker better every day
+- Built with ❤️ for the developer community who inspired authentic AI interactions
 
 ---
 
@@ -373,6 +438,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ⭐ **Star this repo** • 🍴 **Fork for your team** • 💬 **Join the discussion**
 
-Made with 🔥 by [@Immutablemike](https://github.com/Immutablemike) and the GitTalker community
+**Made with 🔥 by developers, for developers. Keep it 100! 💯**
+
+[@Immutablemike](https://github.com/Immutablemike) and the GitTalker community
 
 </div>
