@@ -1,0 +1,76 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve GitTalker
+title: "[Bug]: "
+labels: ["bug", "triage"]
+assignees:
+  - Immutablemike
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Yo! Thanks for taking the time to report a bug. This helps make GitTalker better for everyone! 🔥
+        
+        Please fill out this template with as much detail as possible.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what went wrong
+      placeholder: "GitTalker started speaking French instead of urban English, or something equally wild..."
+      value: "A bug happened!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What did you expect to happen?
+      description: Tell us what you expected
+      placeholder: "I expected GitTalker to respond with its usual urban energy..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Set up GitTalker with Slack
+        2. Ask a question about the repository
+        3. See the unexpected behavior
+        4. Screenshot or copy the response
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: What environment are you running GitTalker in?
+      value: |
+        - OS: [e.g., macOS, Ubuntu, Windows]
+        - Python version: [e.g., 3.9.7]
+        - GitTalker version: [e.g., 1.0.0]
+        - Slack workspace type: [e.g., free, paid]
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: "Screenshots, error logs, or anything else that might help us debug this..."
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

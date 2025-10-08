@@ -1,0 +1,83 @@
+name: 💬 Question or Discussion
+description: Ask a question or start a discussion about GitTalker
+title: "[Question]: "
+labels: ["question", "discussion"]
+assignees:
+  - Immutablemike
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got questions about GitTalker? Want to discuss ideas or get help? Drop your question here! 💭
+        
+        For sensitive topics, feel free to reach out privately via [@Immutablemike](https://github.com/Immutablemike).
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: What type of question is this?
+      options:
+        - "🚀 Getting Started - How do I set up GitTalker?"
+        - "🔧 Configuration - How do I configure something?"
+        - "🎭 Personality - Questions about GitTalker's urban personality"
+        - "🔗 Integration - Slack, GitHub, or other integrations"
+        - "💡 Ideas - Brainstorming or feedback"
+        - "🐛 Troubleshooting - Something's not working right"
+        - "📚 Documentation - Questions about docs or examples"
+        - "🤝 Contributing - How can I help the project?"
+        - "🔒 Privacy/Security - Sensitive questions"
+        - "💬 General - Just want to chat about the project"
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: What's your question?
+      description: Ask away! Be as detailed as you need to be.
+      placeholder: "How do I customize GitTalker's personality? Can I make it even more fire?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any background info that might help us give you a better answer?
+      placeholder: "I'm running GitTalker in a corporate Slack workspace and want to tune the personality appropriately..."
+
+  - type: textarea
+    id: what-tried
+    attributes:
+      label: What have you tried so far?
+      description: If this is a troubleshooting question, what have you already attempted?
+      placeholder: "I looked at the config.py file and tried changing some settings, but..."
+
+  - type: checkboxes
+    id: urgency
+    attributes:
+      label: How urgent is this?
+      description: Help us prioritize
+      options:
+        - label: "🔥 Urgent - Blocking my work or deployment"
+        - label: "⏰ Soon - Would like an answer this week"
+        - label: "🤔 Whenever - No rush, just curious"
+
+  - type: checkboxes
+    id: communication-preference
+    attributes:
+      label: Communication preference
+      description: How would you prefer to discuss this?
+      options:
+        - label: "💬 Public discussion - Others might benefit from this conversation"
+        - label: "🔒 Private message - Sensitive or personal topic (will reach out via GitHub DM)"
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

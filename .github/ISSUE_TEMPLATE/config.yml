@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/Immutablemike/gittalker/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 🔒 Private Contact
+    url: https://github.com/Immutablemike
+    about: For sensitive issues, reach out via private message
+  - name: 📚 Documentation
+    url: https://github.com/Immutablemike/gittalker#readme
+    about: Check the README for setup and usage information
