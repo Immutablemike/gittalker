@@ -85,21 +85,64 @@ GitTalker has a specific urban personality - keep it authentic and consistent:
 
 **Bad**: "Greetings! I shall now provide you with comprehensive documentation regarding the GitHub Application Programming Interface..."
 
+## 🎯 **GitTalker's Mission: Kill the Daily Standup**
+
+**The Real Problem We're Solving:**
+
+GitTalker eliminates the need for endless "What's the status?" conversations. Instead of interrupting developers with daily standups and Slack check-ins, GitTalker provides **automated daily progress updates** that clients can query and track.
+
+**Why This Matters:**
+- **Developers get focus time** - No more constant status interruptions
+- **Clients get transparency** - Real-time access to project progress within scope
+- **Teams stay aligned** - Consistent communication without meeting overhead
+- **Projects move faster** - Less time talking about work, more time doing work
+
+## 🤖 **Agent Personality Customization**
+
+### **The AGENT_Profiles/ System**
+
+GitTalker's magic is in customizable personalities. Check out the `AGENT_Profiles/` directory for:
+
+- **Mike's Jive Robot** (Original urban energy)
+- **Professional Consultant** (Corporate-friendly)  
+- **Technical Expert** (Developer-focused)
+- **Friendly Guide** (Educational approach)
+- **Results-Driven** (Metrics-focused)
+
+### **Why Personality Matters**
+
+Different clients need different communication styles:
+- **Startup founders** might love the jive robot energy
+- **Enterprise CTOs** need professional consultant tone
+- **Technical teams** want detailed technical expert updates
+- **Non-technical stakeholders** benefit from friendly guide explanations
+
+### **Customization Guidelines**
+
+When contributing personality improvements:
+
+1. **Test with Real Clients**: Different industries have different communication norms
+2. **Maintain Authenticity**: Don't force personality - it should feel natural
+3. **Flexible Branding**: Support custom names, not just "ask Mike"
+4. **Cultural Sensitivity**: Make personalities inclusive and respectful
+5. **Business Context**: Remember this is for client communication, not internal team chat
+
 ## 💻 Development Guidelines
 
 ### Code Style
 
-- **Python**: Follow PEP 8 with urban personality in comments
-- **Documentation**: Clear docstrings with personality touches
-- **Comments**: Explain the "why", not just the "what"
-- **Error Messages**: Helpful and in character
+- **Python**: Follow PEP 8 with personality-appropriate comments
+- **Documentation**: Clear docstrings that explain client value
+- **Comments**: Explain the "why" behind personality choices
+- **Error Messages**: Helpful and maintain character consistency
 
 ### Architecture
 
-- **Modular Design**: Keep components separated and focused
-- **Configuration**: Use environment variables for all secrets
-- **Error Handling**: Graceful degradation with helpful messages
-- **Testing**: Write tests for new features (when possible)
+- **Personality Separation**: Keep personality logic separate from core functionality
+- **Profile Loading**: Support dynamic personality profile switching
+- **Configuration**: Use environment variables for all secrets and profile selection
+- **Error Handling**: Graceful degradation with personality-appropriate messages
+- **Testing**: Test personality consistency across different scenarios
 
 ### Security
 
