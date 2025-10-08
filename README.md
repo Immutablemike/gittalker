@@ -4,6 +4,30 @@
 
 GitTalker is an intelligent Slack bot that reads documentation from your GitHub repository and answers questions with personality! Built with modern AI, it keeps responses scoped to your repository content while bringing that authentic street-smart energy to client interactions.
 
+**🌟 This is now an Open Source project!** Check out the public repo at [github.com/Immutablemike/gittalker](https://github.com/Immutablemike/gittalker) for the community version.
+
+## 📋 Project Status & Development Journey
+
+This project evolved from a private client tool into a full open-source project with dual-repo strategy:
+
+### 🔒 **Private Development** (This Repo)
+- **Purpose**: Personal production version with credentials and private configs
+- **URL**: `https://github.com/Immutablemike/gittalker-private`
+- **Branch**: `main` - Contains your working environment with API keys
+- **Use Case**: Your personal GitTalker instance for client work
+
+### 🌍 **Public OSS** (Community Repo)  
+- **Purpose**: Open source version for the developer community
+- **URL**: `https://github.com/Immutablemike/gittalker`
+- **Branch**: `main` (synced from `public-oss` branch here)
+- **Use Case**: Community contributions, forks, and public installations
+
+### 🔄 **Sync Strategy**
+- Features developed in private can be cherry-picked to public (sanitized)
+- Community contributions from public can be merged back to private
+- Separate `.env` handling prevents credential leaks
+- Clean separation of concerns
+
 ## ✨ Features
 
 - **🎭 Urban Personality**: Warm, authentic responses with Gen Z energy and professional knowledge
@@ -44,6 +68,38 @@ cp .env.example .env
 4. **Run the bot**
 ```bash
 python -m uvicorn src.main:app --reload
+```
+
+## 🔄 Development Workflow (Private Repo)
+
+Since this is the private development version, here's how to work with both repos:
+
+### **Working on Private Features**
+```bash
+# Stay on main branch for private work
+git checkout main
+git add .
+git commit -m "Add private feature"
+git push origin main
+```
+
+### **Preparing Features for OSS**
+```bash
+# Switch to public branch for OSS contributions
+git checkout public-oss
+git cherry-pick <commit-hash>  # Pick specific commits
+# OR merge specific features
+git merge main --no-ff
+# Remove any sensitive data, then:
+git push public public-oss:main
+```
+
+### **Syncing Community Contributions**
+```bash
+# Pull public repo changes
+git fetch public
+git checkout main
+git cherry-pick <public-commit-hash>
 ```
 
 ## 🔧 Configuration
@@ -152,9 +208,25 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [Documentation](docs/)
-- [Issues](https://github.com/yourusername/gittalker/issues)
-- [Discussions](https://github.com/yourusername/gittalker/discussions)
+**Public OSS Version:**
+- [Main Repository](https://github.com/Immutablemike/gittalker) 🌍
+- [Issues & Feature Requests](https://github.com/Immutablemike/gittalker/issues)
+- [Community Discussions](https://github.com/Immutablemike/gittalker/discussions)
+
+**Private Development:**
+- [Private Repository](https://github.com/Immutablemike/gittalker-private) 🔒
+- This repo for personal/client work
+
+## 🚀 OSS Journey Notes
+
+This project started as a private client tool and evolved into an open source project! The dual-repo strategy allows for:
+
+- **Clean community engagement** without exposing sensitive configs
+- **Private development** for client work and experiments  
+- **Feature sharing** between private and public versions
+- **Professional OSS presence** with proper documentation and licensing
+
+The urban personality was born from wanting AI assistants that feel more authentic and relatable while maintaining professional utility. No cap, this approach brings some humanity back to AI interactions! 💯
 
 ---
 
