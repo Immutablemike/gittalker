@@ -2,13 +2,31 @@
 
 **Drop-in AI assistant for any software project**
 
+## 🎯 What It's About
+
+**The Problem:** Every developer wastes hours context-switching between documentation, Stack Overflow, and their actual code. You know your project intimately, but getting AI help means explaining your entire codebase every single time.
+
+**The Solution:** GitTalker becomes your project's permanent AI companion. One install command gives you an AI that already understands your codebase, architecture, and patterns. No more explaining context - just get instant, project-specific help.
+
+## ⚡ TLDR
+
+```bash
+# One command in any project directory
+curl -fsSL https://install.gittalker.io | bash
+
+# Your AI companion is ready
+cd .gittalker && ./gittalker chat
+```
+
+**Result:** AI that knows your code, answers your questions, and helps you ship faster.
+
 ## 🚀 One-Line Installation
 
 ```bash
 curl -fsSL https://install.gittalker.io | bash
 ```
 
-GitTalker becomes your intelligent project companion - understanding your codebase, providing instant help, and generating documentation automatically.
+Works with **any LLM** - OpenAI, Anthropic, Ollama, vLLM - both local and corporate models.
 
 ## What GitTalker Does
 
@@ -65,36 +83,23 @@ GitTalker: Here's how to update your User model in src/models.py:
 
 ## How It Works
 
-### 1. Smart Detection
+### Smart Detection
 Automatically detects your project type by analyzing package files, project structure, and build configurations.
 
-### 2. Lightweight Installation  
+### Lightweight Installation  
 Creates a single `.gittalker/` directory with:
+
 - Companion client for AI interaction
 - Project-specific configuration  
 - Local knowledge base of your code
 - Interactive chat interface
 
-### 3. Zero Interference
+### Zero Interference
+
 - Adds only one directory to your project
 - Automatically updates `.gitignore`
 - No modifications to existing code
 - Works alongside any existing tools
-
-## Installation Details
-
-The installer creates this structure in your project:
-
-```
-your-project/
-├── .gittalker/           # GitTalker companion directory
-│   ├── config.json       # Project-specific configuration
-│   ├── gittalker         # Executable client script  
-│   ├── knowledge/        # Indexed project files
-│   └── client/           # Python client module
-├── .gitignore            # Updated to ignore .gittalker/
-└── [your files]          # Completely untouched
-```
 
 ## Advanced Usage
 
@@ -136,9 +141,26 @@ client.scan_project()
 # Project is now indexed and ready for AI queries
 ```
 
-## GitTalker Core Service
+## System Requirements
 
-This repository also contains the core GitTalker service that powers the AI companion:
+- **Git repository** - Must be run from within a git project
+- **Python 3.7+** - For the companion client interface
+- **Internet connection** - To communicate with GitTalker AI service (unless using local models)
+
+## Privacy & Security
+
+- **Local processing** - Project files analyzed locally
+- **Secure communication** - Encrypted connection to AI service
+- **No code storage** - Your code is not stored on external servers
+- **Opt-in sharing** - You control what information is sent
+
+---
+
+## For Developers & Contributors
+
+### GitTalker Core Service
+
+This repository contains the core GitTalker service that powers the AI companion:
 
 ### Core Features
 - **FastAPI Backend** - High-performance async API
@@ -185,40 +207,21 @@ GitTalker uses a hybrid architecture combining:
 
 This enables optimal performance across different use cases while maintaining intelligent behavior.
 
-## Requirements
-
-- **Git repository** - Must be run from within a git project
-- **Python 3.7+** - For the companion client interface
-- **Internet connection** - To communicate with GitTalker AI service
-
-## Security & Privacy
-
-- **Local processing** - Project files analyzed locally
-- **Secure communication** - Encrypted connection to AI service
-- **No code storage** - Your code is not stored on external servers
-- **Opt-in sharing** - You control what information is sent
-
 ## Contributing
 
 We welcome contributions! Please see:
 
 - [Installation System](INSTALL/README.md) - Universal installer documentation
-- [Core Service](src/README.md) - Backend service development
+- [Core Service Development](src/README.md) - Backend service development
 - [Issues](https://github.com/YourUsername/Gittalker/issues) - Bug reports and feature requests
 
-## Support
+## Support & Community
 
 - 📖 **Documentation**: [Full installation guide](INSTALL/README.md)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/YourUsername/Gittalker/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/YourUsername/Gittalker/discussions)
-- 📧 **Email**: support@gittalker.io
+- 📧 **Email**: support[at]gittalker.io
 
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-**Turn any project into an AI-powered development environment with GitTalker**
-
-*Made with ❤️ for developers who want intelligent coding companions*
