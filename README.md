@@ -1,107 +1,172 @@
-# GitTalker - Universal AI Project Companion
+# GitTalker - AI-Powered Project Communication
 
-**Drop-in AI assistant for any software project**
+**Embed an AI agent in your repository that provides real-time project updates and Q&A management to stakeholders in Slack - eliminate daily standups with automated, timestamped progress communication**
 
-## 🎯 What It's About
+## 🎯 The Problem
 
-**The Problem:** Every developer wastes hours context-switching between documentation, Stack Overflow, and their actual code. You know your project intimately, but getting AI help means explaining your entire codebase every single time.
+**Modern development teams waste countless hours on status updates:**
+- Daily standups that interrupt deep work
+- "What's the status?" Slack messages every few hours  
+- Non-technical stakeholders needing constant project visibility
+- Founders and senior devs requiring progress transparency
+- Repetitive explanations of the same project details
 
-**The Solution:** GitTalker becomes your project's permanent AI companion. One install command gives you an AI that already understands your codebase, architecture, and patterns. No more explaining context - just get instant, project-specific help.
+**The cost:** Broken focus, context-switching, and projects that take 2x longer due to communication overhead.
 
-## ⚡ TLDR
+## ⚡ The Solution
 
+GitTalker embeds an AI agent in your repository that becomes your **automated project communication system**. Stakeholders get instant, accurate project updates without interrupting your development flow.
+
+**Replace daily standups with real-time project intelligence:**
+- **Automated progress updates** triggered by commits and milestones
+- **Timestamped project status** available 24/7 in Slack
+- **Stakeholder self-service** for project questions and timeline queries
+- **Professional communication** even when you're heads-down coding
+
+**One-line installation:**
 ```bash
-# One command in any project directory
-curl -fsSL https://install.gittalker.io | bash
-
-# Your AI companion is ready
-cd .gittalker && ./gittalker chat
+curl -fsSL https://raw.githubusercontent.com/Immutablemike/gittalker/main/INSTALL/install.sh | bash
 ```
 
-**Result:** AI that knows your code, answers your questions, and helps you ship faster.
+## � How It Works
 
-## 🚀 One-Line Installation
+**Automated Stakeholder Communication:**
 
-```bash
-curl -fsSL https://install.gittalker.io | bash
+### Professional Project Updates
+- **Mirror key documentation** → Copy README, roadmap, or changelog to your knowledge base
+- **Automated progress tracking** → Timestamp updates triggered by commits and milestones  
+- **Self-service project information** → Stakeholders get instant answers without interrupting dev work
+- **Customizable communication style** → Choose from professional, technical, or friendly AI personalities
+
+### Intelligent Scope Management
+Stakeholders can ask project questions and get informed responses:
+
+```text
+Stakeholder: "What's included in this project?"
+GitTalker: Based on the project scope, we're building:
+• User authentication system
+• Dashboard with analytics 
+• Mobile-responsive design
+• Basic reporting features
+
+NOT included: Advanced reporting, third-party integrations, mobile app.
+
+Stakeholder: "Can we add real-time notifications?"
+GitTalker: That's outside my current knowledge scope - ask Mike directly for scope changes and timeline impact.
 ```
 
-Works with **any LLM** - OpenAI, Anthropic, Ollama, vLLM - both local and corporate models.
+### Developer-Focused Benefits
+For developers who need to maintain focus while keeping stakeholders informed:
 
-## What GitTalker Does
+- **Controlled information sharing** → You decide what goes in the knowledge base
+- **Professional communication** → Consistent, polished responses even when you're busy
+- **Scope boundary enforcement** → Clear "in scope" vs "ask developer directly" responses
+- **Context preservation** → No more explaining the same project details repeatedly
 
-🧠 **Understands Your Codebase** - Automatically scans and indexes your project files  
-💬 **Provides Instant Help** - Chat interface for code questions, debugging, and suggestions  
-📚 **Generates Documentation** - Creates comprehensive docs from your code  
-🔍 **Code Analysis** - Reviews code quality, suggests improvements  
-🏗️ **Architecture Insights** - Understands your project structure and patterns  
+## 🚀 What Gets Installed
 
-## Supported Projects
-
-✅ **Python** - Django, Flask, FastAPI, pip, poetry  
-✅ **JavaScript/TypeScript** - Node.js, React, Vue, Angular, npm, yarn  
-✅ **Go** - Standard Go projects with go.mod  
-✅ **Rust** - Cargo-based projects  
-✅ **Java** - Maven, Gradle projects  
-✅ **PHP** - Composer projects  
-✅ **Any Project** - Generic documentation and analysis  
-
-## Quick Start
-
-After running the installer in your project:
+**Full GitTalker AI Agent Service** - Not just a client, but the complete AI agent that embeds in your project:
 
 ```bash
-# Enter GitTalker companion
+your-project/
+├── .gittalker/                    # GitTalker AI agent directory
+│   ├── src/                       # Complete AI agent source code
+│   ├── gittalker/                 # Your controlled knowledge base
+│   │   ├── project-overview.md    # Mirror of your README
+│   │   ├── progress-log.md        # Daily timestamped updates
+│   │   ├── faq.md                 # Client questions & answers
+│   │   └── roadmap.md             # Timeline & scope boundaries
+│   ├── AGENT_Profiles/            # Personality options
+│   ├── .env.example               # API keys & Slack setup
+│   ├── requirements.txt           # Python dependencies
+│   └── start-gittalker.sh         # Launch your AI agent
+```
+
+**Project Detection:**
+- **Python** (FastAPI, Django, Flask)
+- **JavaScript/TypeScript** (React, Node.js, Next.js)  
+- **Go** (Standard projects with go.mod)
+- **Rust** (Cargo projects)
+- **Java** (Maven, Gradle)
+- **PHP** (Composer projects)
+- **Any project** (Generic documentation support)
+
+## 🎭 Agent Personalities
+
+Choose how your AI communicates with stakeholders:
+
+- **🎤 Jive Robot** - Urban energy, authentic (default)
+- **💼 Professional Consultant** - Corporate-friendly, polished
+- **🧠 Technical Expert** - Developer-focused, detailed
+- **🤝 Friendly Guide** - Educational, supportive  
+- **⚡ Results-Driven** - Metrics-focused, action-oriented
+
+## 🔌 Multi-Platform Client Management
+
+**Beyond Slack** - GitTalker integrates with your existing client communication stack:
+
+### Current Integrations
+- **🟢 Slack** - Full featured (default)
+- **🔵 Discord** - Community/gaming teams  
+- **🟠 Microsoft Teams** - Enterprise environments
+
+### Planned Integrations (Q1 2025)
+- **📋 Linear** - Issue tracking + stakeholder updates
+- **📝 Notion** - Documentation + project wikis
+- **🎯 Monday.com** - Project management + client portals
+
+### Meeting Intelligence Vision 🎯
+**The Future of Developer-Client Meetings** - Imagine having full AI-enhanced knowledge of your codebase at your fingertips during client calls. While platforms like Cluely (enterprise meeting intelligence) don't currently offer public APIs, the vision is clear: GitTalker's project context + real-time meeting AI = next-level developer superpower.
+
+**What this would enable:**
+- 📊 **Real-time project context** during client presentations
+- 🔍 **Instant code explanations** for non-technical stakeholders  
+- ⚡ **Timeline & progress data** accessible during meetings
+- 🎯 **Smart follow-up generation** based on project status
+
+*Note: Currently exploring integration pathways with meeting intelligence platforms as they open developer access.*
+
+## ⚙️ Quick Setup
+
+```bash
 cd .gittalker
-
-# Scan and index your project  
-./gittalker scan
-
-# Start AI chat session
-./gittalker chat
-
-# Generate documentation
-./gittalker docs
+./gittalker config      # Add API keys & Slack bot
+./gittalker knowledge   # Customize project docs
+./gittalker start       # Launch AI agent
 ```
 
-### Example Chat Session
+**What you need:**
+- **LLM API Key** (OpenAI, Anthropic, Ollama, or vLLM)
+- **Slack Bot Token** (for client communication)
+- **5 minutes** to customize your knowledge base
 
+## 💬 Real Stakeholder Interactions
+
+**Professional Progress Updates:**
+
+```text
+Stakeholder: "What's the current status?"
+GitTalker: Here's today's progress update:
+
+✅ Completed: User login system, password reset
+🔄 In Progress: Dashboard UI components (75% complete)
+📋 Next: User profile management, testing phase
+🎯 On track for Friday milestone
+
+Last updated: Oct 9, 2025 2:30 PM
 ```
-You: How can I improve the performance of my API?
-GitTalker: I've analyzed your FastAPI project. Here are specific optimizations:
 
-1. Add async/await to your database queries in src/models.py
-2. Implement response caching for your /api/users endpoint  
-3. Consider connection pooling for your PostgreSQL database
+**Automated Commit-Based Updates:**
 
-Would you like me to show you the specific code changes?
+```text
+GitTalker: 🚀 Development Update (triggered by latest commit):
 
-You: Yes, show me the async database changes
-GitTalker: Here's how to update your User model in src/models.py:
-[Shows specific code examples based on your actual files]
+Just completed: Authentication module with OAuth integration
+Files updated: auth.py, login.html, user-controller.js
+Next milestone: Dashboard components (estimated 2 days)
+
+Commit: "Add OAuth authentication flow" - 2 hours ago
 ```
-
-## How It Works
-
-### Smart Detection
-Automatically detects your project type by analyzing package files, project structure, and build configurations.
-
-### Lightweight Installation  
-Creates a single `.gittalker/` directory with:
-
-- Companion client for AI interaction
-- Project-specific configuration  
-- Local knowledge base of your code
-- Interactive chat interface
-
-### Zero Interference
-
-- Adds only one directory to your project
-- Automatically updates `.gitignore`
-- No modifications to existing code
-- Works alongside any existing tools
-
-## Advanced Usage
 
 ### Custom Configuration
 
@@ -133,58 +198,153 @@ Edit `.gittalker/config.json` to customize file scanning:
 
 Use GitTalker programmatically:
 
-```python
-from gittalker.client import GitTalkerClient
+## 🔧 Customizing Your Knowledge Base
 
-client = GitTalkerClient()
-client.scan_project()
-# Project is now indexed and ready for AI queries
+**Mirror important project docs:**
+```bash
+# Copy key project information
+cp README.md .gittalker/gittalker/project-overview.md
+cp CHANGELOG.md .gittalker/gittalker/progress-log.md
+
+# Create controlled updates
+echo "$(date): Authentication module completed" >> .gittalker/gittalker/daily-updates.md
 ```
 
-## System Requirements
+**Scope boundary examples:**
+```markdown
+# What's NOT included in this project:
+- Real-time chat features
+- Third-party payment processing  
+- Mobile app (web-responsive only)
+- Advanced analytics dashboard
 
-- **Git repository** - Must be run from within a git project
-- **Python 3.7+** - For the companion client interface
-- **Internet connection** - To communicate with GitTalker AI service (unless using local models)
+# Questions outside scope:
+Ask Mike directly for timeline changes, budget discussions, or scope modifications.
+```
 
-## Privacy & Security
+## 🛡️ Why This Matters
 
-- **Local processing** - Project files analyzed locally
-- **Secure communication** - Encrypted connection to AI service
-- **No code storage** - Your code is not stored on external servers
-- **Opt-in sharing** - You control what information is sent
+**For Solo Developers:**
+- Clients get instant answers without interrupting your flow
+- Professional communication even when you're heads-down coding
+- Clear project boundaries prevent scope creep conversations
 
----
+**For Development Teams:**  
+- Consistent project communication across all team members
+- Junior devs protected from client pressure and scope discussions
+- Senior devs freed from constant status update requests
 
-## For Developers & Contributors
+**For Agencies:**
+- Scale client communication without hiring more account managers
+- Maintain professional client relationships with less overhead
+- Protect billable development time from communication tasks
 
-### GitTalker Core Service
+## �️ For Developers: Focus Protection
 
-This repository contains the core GitTalker service that powers the AI companion:
+**The developer-focused benefits** that protect your deep work:
 
-### Core Features
-- **FastAPI Backend** - High-performance async API
-- **Slack Integration** - Real-time chat interface  
-- **RAG Engine** - Intelligent document search and retrieval
-- **GitHub Integration** - Automatic documentation fetching
-- **Multi-Personality AI** - Configurable AI personalities
+**Controlled Information Sharing:**
+- **You curate the knowledge base** - Only information you put in `gittalker/` gets shared
+- **Scope boundary enforcement** - Requests outside your documentation get redirected to you
+- **Professional communication** - Consistent, polished responses even when you're heads-down
+- **Context preservation** - No more explaining the same project details repeatedly
 
-### Development Setup
+**Automated Deflection:**
+```text
+Stakeholder: "Can we add real-time notifications?"
+GitTalker: "That's outside my current knowledge scope - ask Mike directly for scope changes and timeline impact."
+
+Stakeholder: "Why is this taking longer than expected?"
+GitTalker: "Based on current timeline documentation, we're tracking to original estimates. For timeline concerns, please discuss directly with Mike."
+```
+
+**Developer Workflow Integration:**
+```bash
+# Mirror key docs to knowledge base
+cp README.md .gittalker/gittalker/project-overview.md
+cp CHANGELOG.md .gittalker/gittalker/progress-log.md
+
+# Add daily controlled updates
+echo "$(date): Authentication module completed" >> .gittalker/gittalker/daily-updates.md
+
+# Stakeholders get updates, you stay focused
+```
+
+## 🔒 Security & Privacy
+
+- **Sandboxed operation** - AI only accesses the `gittalker/` directory
+- **No code exposure** - Your source code never leaves your repository  
+- **Controlled information sharing** - You decide exactly what gets communicated
+- **Audit trail** - All AI responses logged for review
+
+This installer embeds the complete GitTalker AI agent service. The core service includes:
+
+### Technical Architecture
+
+- **FastAPI Backend** - High-performance async API for AI agent
+- **Slack Integration** - Real-time client communication via Slack bot  
+- **RAG Engine** - Intelligent search through your knowledge base
+- **Multi-LLM Support** - OpenAI, Anthropic, Ollama, vLLM compatibility
+- **Agent Personalities** - Customizable communication styles
+
+### Development Setup (for GitTalker contributors)
 
 ```bash
-# Clone repository
-git clone https://github.com/YourUsername/Gittalker.git
-cd Gittalker
+# Clone the core service repository
+git clone https://github.com/Immutablemike/gittalker.git
+cd gittalker
 
-# Install dependencies  
+# Install dependencies
 pip install -r requirements.txt
 
 # Configure environment
 cp .env.example .env
 # Edit .env with your API keys
 
-# Run development server
-uvicorn src.main:app --reload
+# Run the service
+python src/main.py
+```
+
+### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `SLACK_BOT_TOKEN` | Bot User OAuth Token | ✅ |
+| `SLACK_APP_TOKEN` | App-Level Token for Socket Mode | ✅ |
+| `OPENAI_API_KEY` | OpenAI API key | One LLM required |
+| `ANTHROPIC_API_KEY` | Anthropic API key | One LLM required |
+| `GITHUB_TOKEN` | GitHub Personal Access Token | ✅ |
+| `GITHUB_REPO_URL` | Repository URL to monitor | ✅ |
+| `GITHUB_REPO_URL` | Repository URL to monitor | ✅ |
+
+## 🤝 Contributing
+
+**We welcome contributions!** 
+
+- 🐛 **Bug reports** - Use GitHub Issues
+- ✨ **Feature requests** - Discuss in GitHub Discussions  
+- 🎭 **New agent personalities** - Submit via Pull Request
+- 📚 **Documentation improvements** - Always appreciated
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- 💬 **GitHub Discussions** - Community help and questions
+- 🐛 **GitHub Issues** - Bug reports and feature requests
+- 📧 **Contact** - [@Immutablemike](https://github.com/Immutablemike) for direct support
+
+---
+
+**Ready to eliminate "What's the status?" interruptions?**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Immutablemike/gittalker/main/INSTALL/install.sh | bash
+```
+
+*Built by developers, for developers who want to code in peace while keeping clients happy.* 🚀
 ```
 
 ### Docker Deployment

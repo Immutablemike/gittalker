@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-GITTALKER_REPO="https://github.com/YourUsername/Gittalker.git"
+GITTALKER_REPO="https://github.com/Immutablemike/gittalker.git"
 GITTALKER_DIR=".gittalker"
 CLIENT_DIR="gittalker-client"
 
@@ -61,12 +61,12 @@ detect_project() {
     fi
 }
 
-# Install GitTalker companion
+# Install GitTalker AI agent service
 install_gittalker() {
     local project_type=$1
     local project_name=$(basename "$(pwd)")
     
-    log "Installing GitTalker companion for $project_type project: $project_name"
+    log "Installing GitTalker AI agent for $project_type project: $project_name"
     
     # Create .gittalker directory
     if [[ -d "$GITTALKER_DIR" ]]; then
@@ -76,13 +76,150 @@ install_gittalker() {
     
     mkdir -p "$GITTALKER_DIR"
     
-    # Clone GitTalker client template
-    log "Setting up GitTalker client..."
+    # Clone GitTalker source code
+    log "Downloading GitTalker AI agent..."
+    git clone --depth 1 "$GITTALKER_REPO" "$GITTALKER_DIR/gittalker-source" 2>/dev/null || {
+        error "Failed to download GitTalker. Check internet connection."
+    }
+    
+    # Copy core GitTalker files
+    log "Installing GitTalker service..."
+    cp -r "$GITTALKER_DIR/gittalker-source/src" "$GITTALKER_DIR/"
+    cp "$GITTALKER_DIR/gittalker-source/requirements.txt" "$GITTALKER_DIR/"
+    cp -r "$GITTALKER_DIR/gittalker-source/AGENT_Profiles" "$GITTALKER_DIR/"
+    
+    # Create .env template
+    cat > "$GITTALKER_DIR/.env.example" << 'EOF'
+# Slack Configuration
+SLACK_BOT_TOKEN=xoxb-your-slack-bot-token
+SLACK_APP_TOKEN=xapp-your-app-level-token
+
+# LLM Provider (choose one)
+OPENAI_API_KEY=sk-your-openai-key
+# ANTHROPIC_API_KEY=sk-ant-your-anthropic-key
+# OLLAMA_BASE_URL=http://localhost:11434
+# VLLM_BASE_URL=http://localhost:8000
+
+# GitHub Configuration
+GITHUB_TOKEN=ghp_your-github-token
+GITHUB_REPO_URL=https://github.com/yourusername/your-repo
+
+# Agent Configuration
+AGENT_PROFILE=AGENT_Profiles/mike_jive_robot.json
+REPO_SCOPE_PATH=gittalker/
+EOF
+
+    # Create starter knowledge base
+    mkdir -p "$GITTALKER_DIR/gittalker"
+    cat > "$GITTALKER_DIR/gittalker/README.md" << EOF
+# $project_name Knowledge Base
+
+This directory contains documentation that your GitTalker AI agent will use to answer questions about your project.
+
+## What to include:
+
+- **Project overview** - What does this project do?
+- **Current status** - What's in progress, what's complete?
+- **Roadmap** - Upcoming features and timeline
+- **FAQ** - Common client questions and answers
+- **Technical specs** - Implementation details (if clients need them)
+
+## Example structure:
+
+\`\`\`
+gittalker/
+├── README.md (this file)
+├── project-overview.md
+├── current-status.md
+├── roadmap.md
+├── faq.md
+└── technical-specs.md
+\`\`\`
+
+Your GitTalker AI will read these files and answer client questions based on this information.
+EOF
+
+    cat > "$GITTALKER_DIR/gittalker/project-overview.md" << EOF
+# $project_name Project Overview
+
+## What We're Building
+
+[Describe your project - what problem does it solve? Who is it for?]
+
+## Key Features
+
+- [ ] Feature 1 - [Status: Not started/In progress/Complete]
+- [ ] Feature 2 - [Status: Not started/In progress/Complete]  
+- [ ] Feature 3 - [Status: Not started/In progress/Complete]
+
+## Technology Stack
+
+**Backend:** [Your backend tech]
+**Frontend:** [Your frontend tech]
+**Database:** [Your database]
+**Deployment:** [Your hosting solution]
+
+## Timeline
+
+**Project Start:** [Date]
+**Expected Launch:** [Date]
+**Current Phase:** [Phase description]
+
+---
+*Last updated: $(date)*
+EOF
+
+    cat > "$GITTALKER_DIR/gittalker/faq.md" << EOF
+# $project_name - Frequently Asked Questions
+
+## General Questions
+
+**Q: What does this project do?**
+A: [Brief description of your project's purpose and value]
+
+**Q: When will it be ready?**
+A: [Timeline information and current status]
+
+**Q: What features are included?**
+A: [List of confirmed features for this project]
+
+**Q: What's NOT included in this project?**
+A: [Important - be clear about scope boundaries]
+
+## Technical Questions
+
+**Q: What technology are you using?**
+A: [Brief tech stack overview appropriate for clients]
+
+**Q: Will this work on mobile?**
+A: [Mobile compatibility information]
+
+**Q: How secure is this?**
+A: [Security measures and compliance info]
+
+## Project Management
+
+**Q: How can I track progress?**
+A: Ask @GitTalker for status updates anytime in this channel!
+
+**Q: Who do I contact for urgent issues?**
+A: [Contact information for escalation]
+
+**Q: Can I request changes or new features?**
+A: [Process for handling change requests]
+
+---
+*This FAQ is updated regularly. Ask @GitTalker if you have other questions!*
+EOF
+    
+    # Create project configuration
     cat > "$GITTALKER_DIR/config.json" << EOF
 {
     "project_name": "$project_name",
     "project_type": "$project_type",
-    "gittalker_mode": "companion",
+    "gittalker_mode": "service",
+    "knowledge_base_path": "gittalker/",
+    "agent_profile": "AGENT_Profiles/mike_jive_robot.json",
     "scan_patterns": {
         "python": ["**/*.py", "**/requirements.txt", "**/pyproject.toml"],
         "javascript": ["**/*.js", "**/*.ts", "**/package.json", "**/README.md"],
@@ -105,187 +242,115 @@ install_gittalker() {
 }
 EOF
     
-    # Create knowledge directory
-    mkdir -p "$GITTALKER_DIR/knowledge"
-    
-    # Create client script
-    cat > "$GITTALKER_DIR/gittalker" << 'EOF'
+    # Create GitTalker startup script
+    cat > "$GITTALKER_DIR/start-gittalker.sh" << 'EOF'
 #!/bin/bash
 
-# GitTalker Project Companion Client
-# Quick access to your AI project assistant
+# GitTalker AI Agent Startup Script
+cd "$(dirname "$0")"
 
-GITTALKER_DIR=".gittalker"
-CONFIG_FILE="config.json"
+echo "🤖 Starting GitTalker AI Agent..."
 
-if [[ ! -f "$CONFIG_FILE" ]]; then
-    echo "GitTalker not installed. Run: curl -fsSL https://install.gittalker.io | bash"
+# Check if .env exists
+if [[ ! -f ".env" ]]; then
+    echo "❌ .env file not found!"
+    echo "📋 Copy .env.example to .env and configure your API keys:"
+    echo "   cp .env.example .env"
+    echo "   nano .env"
     exit 1
 fi
 
-# Parse command line arguments
+# Check if Python dependencies are installed
+if ! python3 -c "import fastapi, slack_sdk, openai" 2>/dev/null; then
+    echo "📦 Installing Python dependencies..."
+    pip3 install -r requirements.txt
+fi
+
+# Start GitTalker service
+echo "🚀 GitTalker AI Agent is running..."
+echo "💬 Your AI agent is now listening in Slack!"
+echo "📚 Knowledge base: gittalker/ directory"
+echo "🛑 Press Ctrl+C to stop"
+echo ""
+
+python3 src/main.py
+EOF
+
+    chmod +x "$GITTALKER_DIR/start-gittalker.sh"
+    
+    # Create quick management script
+    cat > "$GITTALKER_DIR/gittalker" << 'EOF'
+#!/bin/bash
+
+# GitTalker AI Agent Management Script
+GITTALKER_DIR="$(dirname "$0")"
+cd "$GITTALKER_DIR"
+
 case "${1:-help}" in
-    "chat"|"c")
-        echo "Starting GitTalker chat session..."
-        python3 client/__init__.py --mode=chat
+    "start"|"run")
+        echo "🚀 Starting GitTalker AI Agent..."
+        ./start-gittalker.sh
         ;;
-    "scan"|"s")
-        echo "Scanning project for GitTalker..."
-        python3 client/__init__.py --mode=scan
+    "stop")
+        echo "🛑 Stopping GitTalker..."
+        pkill -f "python3 src/main.py" || echo "GitTalker not running"
         ;;
-    "docs"|"d")
-        echo "Generating project documentation..."
-        python3 client/__init__.py --mode=docs
+    "status")
+        if pgrep -f "python3 src/main.py" > /dev/null; then
+            echo "✅ GitTalker AI Agent is running"
+        else
+            echo "❌ GitTalker AI Agent is not running"
+        fi
         ;;
-    "help"|"h"|*)
-        echo "GitTalker Project Companion"
+    "logs")
+        echo "📋 GitTalker logs (press Ctrl+C to exit):"
+        tail -f logs/gittalker.log 2>/dev/null || echo "No logs found yet"
+        ;;
+    "config")
+        echo "⚙️ Opening configuration..."
+        ${EDITOR:-nano} .env
+        ;;
+    "knowledge")
+        echo "📚 Opening knowledge base..."
+        ${EDITOR:-nano} gittalker/README.md
+        ;;
+    "profiles")
+        echo "🎭 Available agent profiles:"
+        ls -1 AGENT_Profiles/*.json | sed 's/.*\//  - /'
         echo ""
-        echo "Usage:"
-        echo "  ./gittalker chat   - Start interactive chat session"
-        echo "  ./gittalker scan   - Scan and index project files"
-        echo "  ./gittalker docs   - Generate project documentation"
-        echo "  ./gittalker help   - Show this help"
+        echo "Current profile: $(grep agent_profile config.json | cut -d'"' -f4)"
+        ;;
+    "help"|*)
+        echo "GitTalker AI Agent Management"
         echo ""
-        echo "Quick commands:"
-        echo "  ./gittalker c      - Chat (shorthand)"
-        echo "  ./gittalker s      - Scan (shorthand)"
-        echo "  ./gittalker d      - Docs (shorthand)"
+        echo "Usage: ./gittalker <command>"
+        echo ""
+        echo "Commands:"
+        echo "  start      - Start GitTalker AI agent service"
+        echo "  stop       - Stop GitTalker AI agent"
+        echo "  status     - Check if GitTalker is running"
+        echo "  logs       - View GitTalker logs"
+        echo "  config     - Edit configuration (.env file)"
+        echo "  knowledge  - Edit knowledge base"
+        echo "  profiles   - List available agent personalities"
+        echo "  help       - Show this help"
+        echo ""
+        echo "Quick Setup:"
+        echo "  1. ./gittalker config    # Add your API keys"
+        echo "  2. ./gittalker knowledge # Update project info"
+        echo "  3. ./gittalker start     # Launch your AI agent"
         ;;
 esac
 EOF
+        "dist/**",
     
     chmod +x "$GITTALKER_DIR/gittalker"
     
-    # Create Python client module
-    mkdir -p "$GITTALKER_DIR/client"
-    cat > "$GITTALKER_DIR/client/__init__.py" << 'EOF'
-"""
-GitTalker Project Companion Client
-Lightweight interface to GitTalker AI assistant
-"""
-
-import os
-import sys
-import json
-import glob
-import argparse
-from pathlib import Path
-
-class GitTalkerClient:
-    def __init__(self, config_path="config.json"):
-        self.config_path = config_path
-        self.config = self.load_config()
-        self.knowledge_dir = Path("knowledge")
-        
-    def load_config(self):
-        """Load GitTalker configuration"""
-        try:
-            with open(self.config_path, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            print("GitTalker config not found. Run installer first.")
-            sys.exit(1)
-            
-    def scan_project(self):
-        """Scan project files and build knowledge base"""
-        print(f"Scanning {self.config['project_type']} project: {self.config['project_name']}")
-        
-        patterns = self.config['scan_patterns'].get(self.config['project_type'], [])
-        ignore = self.config['ignore_patterns']
-        
-        # Change to parent directory to scan the actual project
-        os.chdir('..')
-        
-        files_found = []
-        for pattern in patterns:
-            files = glob.glob(pattern, recursive=True)
-            for file in files:
-                if not any(ignored in file for ignored in ignore):
-                    files_found.append(file)
-        
-        print(f"Found {len(files_found)} relevant files")
-        
-        # Create knowledge index (in .gittalker/knowledge/)
-        knowledge_dir = Path(".gittalker/knowledge")
-        knowledge_dir.mkdir(exist_ok=True)
-        with open(knowledge_dir / "file_index.json", 'w') as f:
-            json.dump({
-                "project": self.config['project_name'],
-                "type": self.config['project_type'],
-                "files": files_found,
-                "last_scan": str(Path.cwd())
-            }, f, indent=2)
-            
-        print("Knowledge base updated!")
-        
-    def start_chat(self):
-        """Start interactive chat session"""
-        print("GitTalker Chat Mode - Your AI Project Companion")
-        print("Type 'exit' to quit, 'help' for commands")
-        print("-" * 50)
-        
-        while True:
-            try:
-                user_input = input("You: ").strip()
-                
-                if user_input.lower() in ['exit', 'quit']:
-                    print("Goodbye!")
-                    break
-                elif user_input.lower() == 'help':
-                    self.show_chat_help()
-                elif user_input:
-                    # In a full implementation, this would connect to GitTalker API
-                    self.mock_response(user_input)
-                    
-            except KeyboardInterrupt:
-                print("\nGoodbye!")
-                break
-                
-    def mock_response(self, query):
-        """Mock AI response (replace with actual GitTalker API call)"""
-        responses = [
-            f"I understand you're asking about: '{query}' in your {self.config['project_type']} project.",
-            "I'm analyzing your project structure and codebase...",
-            "Based on your project, here are some suggestions:",
-            "Would you like me to help with code review, documentation, or testing?"
-        ]
-        
-        import random
-        print(f"GitTalker: {random.choice(responses)}")
-        
-    def show_chat_help(self):
-        """Show chat commands"""
-        print("\nGitTalker Chat Commands:")
-        print("  help     - Show this help")
-        print("  scan     - Rescan project files")
-        print("  files    - List indexed files")
-        print("  config   - Show project config")
-        print("  exit     - Quit chat")
-        print()
-        
-    def generate_docs(self):
-        """Generate project documentation"""
-        print("Generating project documentation...")
-        print("This would analyze your code and create comprehensive docs!")
-        
-def main():
-    parser = argparse.ArgumentParser(description='GitTalker Project Companion')
-    parser.add_argument('--mode', choices=['chat', 'scan', 'docs'], 
-                       default='chat', help='Operation mode')
+    # Clean up downloaded source (keep only what we need)
+    rm -rf "$GITTALKER_DIR/gittalker-source"
     
-    args = parser.parse_args()
-    client = GitTalkerClient()
-    
-    if args.mode == 'chat':
-        client.start_chat()
-    elif args.mode == 'scan':
-        client.scan_project()
-    elif args.mode == 'docs':
-        client.generate_docs()
-
-if __name__ == '__main__':
-    main()
-EOF
+    # Create logs directory
+    mkdir -p "$GITTALKER_DIR/logs"
     
     # Add to .gitignore
     if [[ -f ".gitignore" ]]; then
@@ -298,12 +363,21 @@ EOF
         log "Created .gitignore with .gittalker/ entry"
     fi
     
-    success "GitTalker companion installed successfully!"
+    success "GitTalker AI Agent installed successfully!"
     echo ""
-    echo "Quick start:"
-    echo "  cd $GITTALKER_DIR && ./gittalker chat"
-    echo "  cd $GITTALKER_DIR && ./gittalker scan"
+    echo "🎉 Your AI agent is ready!"
     echo ""
+    echo "📋 Next steps:"
+    echo "1. cd .gittalker"
+    echo "2. ./gittalker config      # Add your API keys & Slack bot"
+    echo "3. ./gittalker knowledge   # Update project information" 
+    echo "4. ./gittalker start       # Launch your AI agent"
+    echo ""
+    echo "📚 Knowledge base created at: .gittalker/gittalker/"
+    echo "🎭 Agent profiles available at: .gittalker/AGENT_Profiles/"
+    echo ""
+    echo "💡 Your AI agent will answer client questions based on the"
+    echo "   documentation in the gittalker/ folder."
 }
 
 # Main installation flow
@@ -325,14 +399,22 @@ main() {
     
     # Final instructions
     echo ""
-    echo "🎉 Installation complete!"
+    echo "🎉 GitTalker AI Agent Installation Complete!"
     echo ""
-    echo "Next steps:"
+    echo "📋 Quick Setup:"
     echo "1. cd .gittalker"
-    echo "2. ./gittalker scan    # Index your project"
-    echo "3. ./gittalker chat    # Start AI companion"
+    echo "2. ./gittalker config      # Add API keys & Slack bot tokens"
+    echo "3. ./gittalker knowledge   # Customize project documentation"
+    echo "4. ./gittalker start       # Launch your AI agent"
     echo ""
-    echo "Need help? Check: https://docs.gittalker.io"
+    echo "🤖 Your AI agent will be embedded in Slack, ready to answer"
+    echo "   client questions about your project based on the knowledge"
+    echo "   base in the gittalker/ directory."
+    echo ""
+    echo "💬 Invite your GitTalker bot to Slack channels and clients"
+    echo "   can ask questions anytime with @GitTalker"
+    echo ""
+    echo "📖 Documentation: https://docs.gittalker.io"
 }
 
 # Run if executed directly
