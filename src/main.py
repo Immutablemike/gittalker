@@ -3,14 +3,22 @@ from slack_sdk import WebClient
 from slack_sdk.socket_mode import SocketModeClient
 from slack_sdk.socket_mode.request import SocketModeRequest
 from slack_sdk.socket_mode.response import SocketModeResponse
-import asyncio
 import uvicorn
+import logging
+import re
 from .config import SLACK_BOT_TOKEN, SLACK_APP_TOKEN
 from .github_fetcher import GitHubDocsFetcher
 from .rag_engine import SimpleRAG
 from .agent import GitTalkerAgent
 
-app = FastAPI(title="GitTalker", description="Slack bot for GitHub repository Q&A")
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+app = FastAPI(
+    title="GitTalker", 
+    description="Slack bot for GitHub repository Q&A"
+)
 
 # Global instances
 github_fetcher = GitHubDocsFetcher()
@@ -29,7 +37,9 @@ class SlackBot:
             self.handle_events
         )
         
-    async def handle_events(self, client: SocketModeClient, req: SocketModeRequest):
+    async def handle_events(
+        self, client: SocketModeClient, req: SocketModeRequest
+    ):
         """Handle incoming Slack events."""
         if req.type == "events_api":
             event = req.payload["event"]
@@ -50,7 +60,6 @@ class SlackBot:
     async def handle_mention(self, event):
         """Handle @bot mentions in channels."""
         channel = event["channel"]
-        user = event["user"]
         text = event["text"]
         
         # Remove bot mention from text
@@ -59,7 +68,7 @@ class SlackBot:
         if gittalker_agent.is_valid_query(clean_text):
             response = await self.process_query(clean_text)
             
-            slack_client.chat_postMessage(
+            await slack_client.chat_postMessage(
                 channel=channel,
                 text=response,
                 thread_ts=event.get("ts")  # Reply in thread if possible
@@ -68,13 +77,12 @@ class SlackBot:
     async def handle_dm(self, event):
         """Handle direct messages to the bot."""
         channel = event["channel"]
-        user = event["user"]
         text = event["text"]
         
         if gittalker_agent.is_valid_query(text):
             response = await self.process_query(text)
             
-            slack_client.chat_postMessage(
+            await slack_client.chat_postMessage(
                 channel=channel,
                 text=response
             )
@@ -91,12 +99,17 @@ class SlackBot:
             
             return response
             
+        except (ValueError, KeyError) as e:
+            logger.error("Query processing error: %s", e)
+            return ("Sorry, I had trouble processing your question. "
+                    "Try rephrasing it or ask Mike! 💭")
         except Exception as e:
-            return f"Sorry, I encountered an error processing your question: {str(e)}"
+            logger.error("Unexpected error in query processing: %s", e)
+            return ("Something went wrong on my end. "
+                    "Better hit up Mike for this one! 🔧")
     
     def clean_mention_text(self, text: str) -> str:
         """Remove bot mention from message text."""
-        import re
         # Remove <@USER_ID> mentions
         clean_text = re.sub(r'<@[A-Z0-9]+>', '', text).strip()
         return clean_text
@@ -114,25 +127,29 @@ slack_bot = SlackBot()
 async def startup_event():
     """Initialize documentation on startup."""
     try:
-        print("Fetching documentation from GitHub...")
+        logger.info("Fetching documentation from GitHub...")
         docs = await github_fetcher.fetch_docs()
         
-        print(f"Indexing {len(docs)} documents...")
+        logger.info("Indexing %d documents...", len(docs))
         rag_engine.index_documents(docs)
         
-        print("Starting Slack bot...")
+        logger.info("Starting Slack bot...")
         slack_bot.start()
         
-        print("DocsBot is ready!")
+        logger.info("GitTalker is ready!")
         
+    except (ValueError, ConnectionError) as e:
+        logger.error("Startup configuration error: %s", e)
+        raise
     except Exception as e:
-        print(f"Startup error: {e}")
+        logger.error("Unexpected startup error: %s", e)
+        raise
 
 
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "service": "DocsBot"}
+    return {"status": "healthy", "service": "GitTalker"}
 
 
 if __name__ == "__main__":

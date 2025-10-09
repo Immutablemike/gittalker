@@ -1,0 +1,33 @@
+# GitTalker Docker Configuration
+version: '3.8'
+
+services:
+  gittalker:
+    build: .
+    container_name: gittalker
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - GITHUB_DOCS_PATH=${GITHUB_DOCS_PATH:-gittalker/}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_APP_TOKEN=${SLACK_APP_TOKEN}
+      - AGENT_NAME=${AGENT_NAME:-GitTalker}
+    volumes:
+      - ./docs:/app/docs
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - gittalker-network
+
+networks:
+  gittalker-network:
+    driver: bridge
