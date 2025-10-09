@@ -1,0 +1,60 @@
+{
+    "project_name": "javascript-project",
+    "project_type": "javascript", 
+    "gittalker_mode": "companion",
+    "scan_patterns": {
+        "javascript": [
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.vue",
+            "**/package.json",
+            "**/package-lock.json",
+            "**/yarn.lock",
+            "**/tsconfig.json",
+            "**/webpack.config.js",
+            "**/vite.config.js",
+            "**/next.config.js",
+            "**/README.md",
+            "**/docs/**/*.md",
+            "**/*.test.js",
+            "**/*.spec.js"
+        ]
+    },
+    "ignore_patterns": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        "coverage/**",
+        ".next/**",
+        ".nuxt/**",
+        "out/**",
+        "*.log",
+        ".git/**",
+        ".cache/**",
+        ".parcel-cache/**",
+        ".gittalker/**",
+        "*.min.js",
+        "*.bundle.js"
+    ],
+    "ai_focus_areas": [
+        "code_quality",
+        "performance_optimization",
+        "react_patterns",
+        "typescript_best_practices", 
+        "bundling_optimization",
+        "testing_strategies",
+        "accessibility",
+        "security_practices"
+    ],
+    "framework_hints": {
+        "react": ["**/src/**/*.jsx", "**/src/**/*.tsx", "**/public/index.html"],
+        "vue": ["**/*.vue", "**/src/**/*.js"],
+        "angular": ["**/*.component.ts", "**/angular.json"],
+        "next": ["**/pages/**", "**/next.config.js"],
+        "express": ["**/app.js", "**/server.js", "**/routes/**"],
+        "jest": ["**/*.test.js", "**/jest.config.js"],
+        "typescript": ["**/tsconfig.json", "**/*.ts", "**/*.tsx"]
+    }
+}

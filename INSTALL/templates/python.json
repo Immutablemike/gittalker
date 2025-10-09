@@ -1,0 +1,63 @@
+{
+    "project_name": "python-project",
+    "project_type": "python",
+    "gittalker_mode": "companion",
+    "scan_patterns": {
+        "python": [
+            "**/*.py",
+            "**/requirements.txt",
+            "**/pyproject.toml",
+            "**/setup.py",
+            "**/setup.cfg",
+            "**/Pipfile",
+            "**/poetry.lock",
+            "**/README.md",
+            "**/docs/**/*.md",
+            "**/tests/**/*.py"
+        ]
+    },
+    "ignore_patterns": [
+        "__pycache__/**",
+        "*.pyc",
+        "*.pyo",
+        "*.pyd",
+        ".Python",
+        "env/**",
+        "venv/**",
+        ".venv/**",
+        "pip-log.txt",
+        "pip-delete-this-directory.txt",
+        ".tox/**",
+        ".coverage",
+        ".coverage.*",
+        ".cache",
+        "nosetests.xml",
+        "coverage.xml",
+        "*.cover",
+        "*.log",
+        ".git/**",
+        ".mypy_cache/**",
+        ".pytest_cache/**",
+        ".hypothesis/**",
+        ".gittalker/**",
+        "dist/**",
+        "build/**",
+        "*.egg-info/**"
+    ],
+    "ai_focus_areas": [
+        "code_quality",
+        "performance_optimization", 
+        "testing_strategies",
+        "pythonic_patterns",
+        "dependency_management",
+        "documentation_generation"
+    ],
+    "framework_hints": {
+        "django": ["**/models.py", "**/views.py", "**/settings.py", "**/urls.py"],
+        "flask": ["**/app.py", "**/routes.py", "**/models.py"],
+        "fastapi": ["**/main.py", "**/routers/**", "**/models/**"],
+        "pytest": ["**/test_*.py", "**/conftest.py"],
+        "poetry": ["**/pyproject.toml"],
+        "pip": ["**/requirements.txt"]
+    }
+}

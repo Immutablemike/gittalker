@@ -1,0 +1,44 @@
+{
+    "project_name": "go-project",
+    "project_type": "go",
+    "gittalker_mode": "companion", 
+    "scan_patterns": {
+        "go": [
+            "**/*.go",
+            "**/go.mod",
+            "**/go.sum",
+            "**/Makefile",
+            "**/Dockerfile",
+            "**/README.md",
+            "**/docs/**/*.md",
+            "**/*_test.go"
+        ]
+    },
+    "ignore_patterns": [
+        "vendor/**",
+        "*.exe",
+        "*.test",
+        "*.prof",
+        ".git/**",
+        ".gittalker/**",
+        "bin/**",
+        "dist/**"
+    ],
+    "ai_focus_areas": [
+        "concurrency_patterns",
+        "error_handling",
+        "performance_optimization",
+        "memory_management",
+        "testing_strategies",
+        "go_modules",
+        "microservices_patterns"
+    ],
+    "framework_hints": {
+        "gin": ["**/main.go", "**/*router*.go"],
+        "echo": ["**/main.go", "**/*handler*.go"],
+        "fiber": ["**/main.go", "**/*route*.go"],
+        "grpc": ["**/*.proto", "**/*grpc*.go"],
+        "cobra": ["**/cmd/**/*.go"],
+        "gorm": ["**/*model*.go", "**/*entity*.go"]
+    }
+}
