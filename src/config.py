@@ -127,10 +127,88 @@ RESPONSE STYLE:
     }
 }
 
+# =============================================================================
+# LLM PROVIDER CONFIGURATION
+# =============================================================================
+
+# Primary LLM Provider Selection
+PRIMARY_LLM_PROVIDER = os.getenv("PRIMARY_LLM_PROVIDER", "openai")
+
 # OpenAI Configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+OPENAI_ORGANIZATION = os.getenv("OPENAI_ORGANIZATION")
+
+# Anthropic Configuration
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+ANTHROPIC_MODEL = os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-20241022")
+ANTHROPIC_BASE_URL = os.getenv(
+    "ANTHROPIC_BASE_URL", "https://api.anthropic.com"
+)
+ANTHROPIC_VERSION = os.getenv("ANTHROPIC_VERSION", "2023-06-01")
+
+# Ollama Configuration (Local LLM)
+OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "deepseek-coder:33b")
+OLLAMA_KEEP_ALIVE = os.getenv("OLLAMA_KEEP_ALIVE", "5m")
+
+# vLLM Configuration
+VLLM_BASE_URL = os.getenv("VLLM_BASE_URL", "http://localhost:8000")
+VLLM_MODEL = os.getenv("VLLM_MODEL", "meta-llama/Llama-3.1-8B-Instruct")
+VLLM_API_KEY = os.getenv("VLLM_API_KEY")
+VLLM_TRUST_REMOTE_CODE = (
+    os.getenv("VLLM_TRUST_REMOTE_CODE", "true").lower() == "true"
+)
+
+# General LLM Settings
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.7"))
 MAX_CONTEXT_LENGTH = int(os.getenv("MAX_CONTEXT_LENGTH", "4000"))
+MAX_TOKENS = int(os.getenv("MAX_TOKENS", "2000"))
+
+# Rate Limiting and Retry Configuration
+MAX_REQUESTS_PER_MINUTE = int(os.getenv("MAX_REQUESTS_PER_MINUTE", "60"))
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", "30"))
+MAX_RETRIES = int(os.getenv("MAX_RETRIES", "3"))
+
+# Fallback Configuration
+ENABLE_LLM_FALLBACK = (
+    os.getenv("ENABLE_LLM_FALLBACK", "true").lower() == "true"
+)
+FALLBACK_ORDER = os.getenv(
+    "FALLBACK_ORDER", "openai,anthropic,ollama"
+).split(",")
+
+# LLM Provider Configurations
+LLM_CONFIGS = {
+    "openai": {
+        "api_key": OPENAI_API_KEY,
+        "model": OPENAI_MODEL,
+        "base_url": OPENAI_BASE_URL,
+        "organization": OPENAI_ORGANIZATION,
+        "enabled": bool(OPENAI_API_KEY)
+    },
+    "anthropic": {
+        "api_key": ANTHROPIC_API_KEY,
+        "model": ANTHROPIC_MODEL,
+        "base_url": ANTHROPIC_BASE_URL,
+        "version": ANTHROPIC_VERSION,
+        "enabled": bool(ANTHROPIC_API_KEY)
+    },
+    "ollama": {
+        "base_url": OLLAMA_BASE_URL,
+        "model": OLLAMA_MODEL,
+        "keep_alive": OLLAMA_KEEP_ALIVE,
+        "enabled": True  # Always enabled if URL is accessible
+    },
+    "vllm": {
+        "base_url": VLLM_BASE_URL,
+        "model": VLLM_MODEL,
+        "api_key": VLLM_API_KEY,
+        "trust_remote_code": VLLM_TRUST_REMOTE_CODE,
+        "enabled": bool(VLLM_BASE_URL)
+    }
+}
 
 # GitHub Configuration
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
